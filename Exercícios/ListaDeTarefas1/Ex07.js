@@ -8,4 +8,5 @@ if(quantidadeDeMaçãs <= 12){
 } else{
     preçoTotal = quantidadeDeMaçãs * 0.25;
 }
+
 console.log(`Preço Final da compra: R$${preçoTotal.toFixed(2)}`)
