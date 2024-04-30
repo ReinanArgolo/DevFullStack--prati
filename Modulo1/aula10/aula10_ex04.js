@@ -29,4 +29,5 @@ return null;
       
       
       console.log(binarySearch(numbers, choice)); // 1
-      
+
+      //teste 01
