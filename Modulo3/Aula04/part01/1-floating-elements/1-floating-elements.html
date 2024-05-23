@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Elements</title>
+    <style type="text/css">
+        body {
+            background: #f4f4f4;
+        }
+
+        #principal {
+            width: 920px;
+            border: 3px solid red;
+            background-color: green;
+
+        }
+
+        #galeria {
+            background: yellow;
+            padding: 5px;
+            margin-top: 5px;
+            border: 3px solid red;
+
+
+        }
+
+        .noticia {
+            background-color: aliceblue;
+            padding: 5px;
+            width: 280px;
+            margin: 7px;
+            float: left;
+            
+        }
+
+
+        .imagens-galeria {
+            background-color: #FFF;
+            width: 265px;
+            padding: 5px;
+            margin: 15px;
+            float: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="principal">
+        <div class="noticia">
+            <h2>Noticia</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas reprehenderit accusantium repellat maiores nihil sed minus magnam quasi eaque, iure officia voluptates consequuntur incidunt deserunt omnis magni dolorum explicabo! Cupiditate?
+            </p>
+            <a href="#">Veja mais</a>
+        </div>
+   
+        <div class="noticia">
+            <h2>Noticia</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas reprehenderit accusantium repellat maiores nihil sed minus magnam quasi eaque, iure officia voluptates consequuntur incidunt deserunt omnis magni dolorum explicabo! Cupiditate?
+            </p>
+            <a href="#">Veja mais</a>
+        </div>
+
+        <div class="noticia">
+            <h2>Noticia</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas reprehenderit accusantium repellat maiores nihil sed minus magnam quasi eaque, iure officia voluptates consequuntur incidunt deserunt omnis magni dolorum explicabo! Cupiditate?
+            </p>
+            <a href="#">Veja mais</a>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    <div id="galeria">
+        <div class="imagens-galeria">
+            <img src="../images/image1.png" alt="">
+            <p>veja mais</p>
+        </div>
+
+        <div class="imagens-galeria">
+            <img src="../images/image2.png" alt="">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deserunt necessitatibus, sint eos fuga accusamus, illo debitis ipsam quam aspernatur distinctio nostrum et. Nam incidunt deserunt mollitia nostrum ipsam magni.</p>
+        </div>
+        
+        <div class="imagens-galeria">
+            <img src="../images/image3.png" alt="">
+            <p>Texto importante</p>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

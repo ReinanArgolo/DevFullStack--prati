@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatico, relativo, absoluto e fixo</title>
+    <style type="text/css">
+        h1 {
+            position: static;
+        }
+
+        p {
+            width: 400px;
+        }
+
+        #container {
+            background-color: #fff;
+            width: 800px;
+            margin: 10px auto;
+            padding: 10px;
+            border: 1px solid;
+            position: absolute;
+        }
+
+        .relative {
+            border: 3px solid red;
+            position: relative;
+            left: 150px;
+            right: 2000px;
+        }
+
+        .absolute {
+            border: 3px solid green;
+            position: absolute;
+            left: 50%;
+        
+        }
+
+        .fixed {
+            border: 3px solid blue;
+            position: fixed;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Posicionamentos</h1>
+
+        <p class="relative">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, tempora? Explicabo ut amet, modi dignissimos quos natus numquam cum ea placeat! Similique debitis corrupti quidem repudiandae, reiciendis asperiores voluptate illo!</p>
+    
+        <p class="absolute">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex porro aliquid doloribus est cumque quia vero minus dolor architecto praesentium tempore pariatur id eius iste, ea corrupti inventore. Molestias, non!
+        </p>
+
+        <p class="fixed">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem tempora magni blanditiis consequatur illo! Rerum temporibus dolorem consequatur dolore veniam. Quibusdam, vero qui. Recusandae, cumque ipsa porro laudantium tempore rerum.</p>
+    </div>
+</body>
+</html>
