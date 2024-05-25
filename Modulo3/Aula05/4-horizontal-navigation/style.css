@@ -1,0 +1,44 @@
+body {
+    margin: 0px 0px 0px;
+    background-color: antiquewhite;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+nav {
+    
+    background-image:  url(images/fundo-horizontal.png);
+
+}
+
+nav#menu li {
+    display: inline;
+    padding: 5px 20px;
+    background-color: aliceblue;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+   
+}
+
+nav#menu a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+nav#menu a li:hover{
+    background-color: blue;
+    color: white;
+}
+
+body#paginaInicial a li.content,
+body#sobre ul a li.content{
+    background-color: blue;
+    color: white;
+}

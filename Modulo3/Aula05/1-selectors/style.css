@@ -1,0 +1,15 @@
+* {
+    border: 3px solid;
+}
+
+h2 {
+    color: green
+}
+
+li > a {
+    background-color: red;
+}
+
+h2+p {
+    background-color: wheat;
+}
