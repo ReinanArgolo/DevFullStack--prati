@@ -784,3 +784,77 @@ matrizM.forEach(linha => {
 console.log(`A quantidade de números negativos em cada linha é: ${posiQuantNegativos}`)
 
 // EXERCÍCIO 25
+/* Faça um algoritmo que leia uma matriz de 15 X 20 de números reais e mostre a soma
+de cada coluna separadamente. */
+
+let matriz = [ [], [], [], [], [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[] ]
+
+for (let m = 0; m < 20; m++) {
+    for (let n = 0; n < 20; n++){
+        num = (Math.random() * (100 - (-100)) + -100).toFixed(4)
+        matriz[m][n] = num
+    }
+console.log(`[${matriz[m]}]`)
+}
+
+let contagemLinha = 0
+matriz.forEach(linha => {
+    
+    let somaLinha = 0
+
+    linha.forEach(valor => {
+        somaLinha =+ valor
+    });
+
+    console.log(`A soma dos valores da linha ${contagemLinha} é: ${somaLinha}`)
+    contagemLinha++
+});
+
+// EXERCÍCIOS 26
+/* Dadas duas matrizes numéricas A[1..3,1..5] e B[1..3,1..5], calcular a matriz produto
+P[1..3,1..5]. */
+
+
+function multiplicarMatrizes(A, B) {
+   
+    let P = [];
+    for (let i = 0; i < A.length; i++) {
+      P[i] = [];
+      for (let j = 0; j < B[0].length; j++) {
+        P[i][j] = 0;
+      }
+    }
+  
+    
+    for (let i = 0; i < A.length; i++) {
+      for (let j = 0; j < B[0].length; j++) {
+        for (let k = 0; k < A[0].length; k++) {
+          P[i][j] += A[i][k] * B[k][j];
+        }
+      }
+    }
+  
+    return P;
+  }
+  
+
+  let A = [
+    [16, 17, 18],
+    [21, 22, 23],
+    [26, 27, 28],
+    [31, 32, 33],
+    [36, 37, 38],
+  ];
+  
+  let B = [
+    [16, 17, 18, 19, 20],
+    [21, 22, 23, 24, 25],
+    [26, 27, 28, 29, 30],
+  ]
+  
+  const P = multiplicarMatrizes(A, B);
+  
+  console.table(P);
+
+  // EXERCÍCIO 27
+  

@@ -1,0 +1,41 @@
+td {
+    text-align: center;
+}
+
+table {
+    border: 1px solid;
+    margin: 100px auto ;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+td {
+    border: 1px solid;
+    padding: 10px;
+    background-color: gray;
+}
+
+input {
+    background-color: black;
+    color: white;
+}
+
+td input.botao {
+    width: 40px;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+}
+
+.excluir {
+    border: none;
+    background: none;
+}
+
+.resultado {
+    height: 30px;
+    width: 200px;
+}
+
+.botao:hover {
+    background-color: rgb(56, 56, 56);
+}

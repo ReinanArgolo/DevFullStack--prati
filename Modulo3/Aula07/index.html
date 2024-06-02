@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserindo JS</title>
+    <script>
+        /* let nome = prompt('Digite o seu nome:')
+        let idade = prompt('Digite sua idade')
+
+        document.write(`O seu nome é ${nome}, e você tem ${idade} anos`)
+
+        let n2 = parseInt(prompt('Digite a nota 02'))
+
+        let media = (n1+n2)/2
+
+        document.write(`<p> Sua média é: ${media}</p>`) */
+
+        function eventoTeclado() {
+            document.write('Evento aconteceu')
+        }
+        
+    </script>
+</head>
+<body>
+    <select  onblur="eventoTeclado()">
+        <option value="">1</option>    
+        <option value="">2</option>    
+    </select>
+
+    
+</body>
+</html>
