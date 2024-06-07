@@ -7,7 +7,7 @@ let matrizex30 = []
 for (i = 0; i < 5; i++) {
     let temp = []
     for (let c = 0; c < 5; c++) {
-       let num = (Math.random() * (100 - (1)) + 1).toFixed()
+       let num = parseInt((Math.random() * (100 - (1)) + 1).toFixed())
        temp.push(num)
     }
 
@@ -15,13 +15,23 @@ for (i = 0; i < 5; i++) {
 
 }
 
-console.table(matrizex30);
+console.log(matrizex30);
 
 let sl = [0, 0, 0, 0 ,0]
 let sc = [0, 0, 0, 0 ,0]
 
-for (i=0; i < 5; i++) {
+for (i=0; i < 5; i++) { 
+    let somaLinha = 0;
     for (c=0; c<5; c++) {
+        somaLinha += matrizex30[i][c];
+        sc[c] += matrizex30[i][c]
+    }   
+    sl[i] = somaLinha;
 
-    }
+}
+
+for (i = 0; i < 5; i++) {
+    console.log(`A soma da Linha  ${i} é: ${sl[i]}`)
+    console.log(`A soma da Coluna ${i} é: ${sl[i]}`)
+    console.log('- '.repeat(10))
 }

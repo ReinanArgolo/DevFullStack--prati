@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script>
+
+        function trocarEstilização(estilo) {
+            document.getElementById('quadrado').style.background = estilo;
+        }
+
+        function trocarEstiloClasse(clss) {
+            document.getElementById('um').className = clss
+        }
+
+    </script>
+
+    <style>
+
+        .um {
+            background-color: #eee;
+            height: 100px;
+            width: 100px;
+        }
+
+        .dois {
+            background-color: #843a3a;
+            height: 100px;
+            width: 100px;
+            border-radius: 30%; 
+        }
+
+        .tres {
+            height: 100px;
+            width: 100px;
+            background: url(https://cdn.pixabay.com/photo/2023/09/24/16/31/beetle-8273349_1280.jpg) center ;
+            background-size: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <button type="button" onclick="trocarEstiloClasse('um')"> Reinan </button>
+    <button type="button" onclick="trocarEstiloClasse('dois')"> Reinan </button>
+    <button type="button" onclick="trocarEstiloClasse('tres')"> Reinan </button>
+   
+
+    <div class="um" id = 'um'></div>
+
+</html>

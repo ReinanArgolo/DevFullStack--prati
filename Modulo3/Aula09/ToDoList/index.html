@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="./script/app.js"></script>
+</head>
+<body id="index">
+    
+    <main>
+        <header>
+            <nav>
+                <div class="titulo">
+                    <h1>To do List</h1>
+                </div>
+
+                
+                <ul class="links">
+                    <li class="index"><a href="tabela.html">A Fazer</a></li>
+                    <li class="table"><a href="index.html">Feitos</a></li>
+                </ul>
+            </nav>
+
+            <section id="aplic">
+                <div class="form">
+                    <form>
+                        <h2 class="titulo, tituloTaref">Título da tarefa</h2> 
+                    <input id="title" type="text">
+        
+                    <h2 class="dataTitle">Data</h2> 
+                    <input id="date" type="date" class="dataInput">
+                
+                    <h2 class="descTitle">Descrição</h2> 
+                    <input id="description" type="text" class="descInput">
+
+                    <button type="submit" id="salvarBtn" onclick="registerTask()">Incluir</button>
+                    </form>
+                </div>
+            </section>
+            
+        </header>
+    </main>
+    
+    
+</body>
+</html>

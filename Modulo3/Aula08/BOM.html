@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browser Object Model</title>
+
+    <script>
+
+        var janela;
+        function popUp() {
+            let janela = window.open('https://www.google.com', 'nova_janela', 'width=200')
+        }
+
+        function ClosePopUp() {
+            janela.close()
+        }
+
+        function imprimir() {
+           print()
+        }
+
+        let height = window.screen.availHeight
+        let width = window.screen.availWidth
+
+        document.write('height: ' + height + ' width: ' + width)
+
+        window.setTimeout(()=>{
+            document.write('Reinan lindo </br>')
+        }, 10001 )
+
+        let i = 10
+
+        let x = window.setInterval(() => {
+            document.write(i + '<br/>');
+            i--;
+            if (i == 0) {
+                clearInterval(x)
+            }
+        }, 1000)
+
+    </script>
+</head>
+<body>
+    <button onclick="popUp()">Abrir Janela</button>
+    <button onclick="ClosePopUp()">Fechar Janela</button>
+    <button onclick="imprimir()">imprimir</button>
+    
+    <button onclick="window.location.href = 'https://www.google.com'">Ir </button>
+</body>
+</html>
