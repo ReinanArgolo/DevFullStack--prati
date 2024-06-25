@@ -1173,6 +1173,106 @@ function multiplicarLinha(li, numDiag) {
 
 console.log(matriz34Multi)
 
+// EXERCÍCIO 35
+/* Elaborar um algoritmo que leia um conjunto de 30 valores e os coloca em 2 vetores
+conforme forem pares ou ímpares. O tamanho do vetor é de 5 posições. Se algum vetor
+estiver cheio, escrevê-lo. Terminada a leitura, escrever o conteúdo dos dois vetores. Cada
+vetor pode ser preenchido quantas vezes forem necessárias. */
+
+let matrizex35 = Array()
+let pares = Array()
+let impares = Array()
+for (i = 0; i < 30; i++) {
+       let num = parseInt((Math.random() * (100 - (1)) + 1).toFixed())
+       matrizex35.push(num)
+}
+
+matrizex35.forEach(numb => {
+    if(numb % 2 == 0) {
+        inserirPar(numb)
+    } else {
+        inserirImpar(numb)
+    } 
+});
+
+imprimirPares()
+imprimirImpares()
+
+function inserirPar(numb) {
+    if (pares.length < 5){
+        pares.push(numb)
+    } else {
+        imprimirPares()
+        pares = []
+        pares.push(numb)
+    }
+}
+
+function inserirImpar(numb) {
+    if (impares.length < 5) {
+        impares.push(numb)
+    } else {
+        imprimirImpares()
+        impares = []
+        impares.push(numb)
+    }
+}
+
+function imprimirPares() {
+    console.log(`Numeros Pares: ${pares}`)
+}
+
+function imprimirImpares() {
+    console.log(`Numeros Impares: ${impares}`)
+}
+
+// EXERCÍCIO 36
+/* Escreva um algoritmo que leia um vetor de 13 elementos inteiros, que é o Gabarito de
+um teste da loteria esportiva. Leia, a seguir, para cada um dos 100 apostadores, o número
+do seu cartão e um vetor de Respostas de 13 posições. Verifique para cada apostador o
+número de acertos, comparando o vetor de Gabarito com o vetor de Respostas. Escreva
+o número do apostador e o número de acertos. Se o apostador tiver 13 acertos, mostrar a
+mensagem "Parabéns, tu foi o GANHADOR". */
+
+let gabarito =  Array()
+let apostas =  Array()
+
+for (i = 0; i < 13; i++) {
+    let num = parseInt((Math.random() * (5 - (1)) + 1).toFixed())
+    gabarito.push(num)
+}
+
+for (let i = 0; i < 100; i++) {
+    let tempApt = []
+    for (let l = 0; l < 13; l++) {
+        let num = parseInt((Math.random() * (5 - (1)) + 1).toFixed())
+        tempApt.push(num)
+    }
+    apostas.push(tempApt)
+}
+
+for (i = 0; i < apostas.length; i++) {
+    gabarito = gabarito.sort(compararNum)
+    let aposta = apostas[i].sort(compararNum)
+    let acertos = 0
+
+    for (a = 0; a < aposta.length; a++) {
+        if (aposta[a] == gabarito[a]) {
+            acertos++
+        }
+    }
+        console.log('-'.repeat(10))
+        console.log(`O Jogador nº ${i} teve ${acertos} acertos!`)
+
+    if (acertos == 13) {
+        console.log(`Parabéns você foi o GANHADOR!`)
+    }
+}
+
+function compararNum (a,b) {
+    return a - b
+}
+
 
     
   

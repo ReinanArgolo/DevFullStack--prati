@@ -1,0 +1,12 @@
+#box{
+    width: 400px;
+    height: 400px;
+    background: repeating-conic-gradient(green 0%, blue 15%, green 33%);
+
+}
+
+#box h1 {
+    /* background: rgba(184, 140, 140, 0.5); */
+    /* background: repeating-conic-gradient(to right, green 15%, blue); */
+    
+}

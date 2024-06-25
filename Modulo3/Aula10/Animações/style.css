@@ -1,0 +1,33 @@
+/* #box {
+    width: 200px;
+    height: 200px;
+    background-color: cadetblue;
+    position: relative;
+    animation-name: animation-box;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes animation-box {
+    from {
+        background: cadetblue;
+        border-radius: 5px;
+    } to {
+        background: orange;
+        border-radius: 100px;
+    }
+} */
+
+#box {
+    width: 200px;
+    height: 200px;
+    background-color: cadetblue;
+    transition: all 3s;
+}
+
+#box:hover {
+    width: 400px;
+    background-color: rgb(74, 82, 83);
+    transition: all 3s;
+}

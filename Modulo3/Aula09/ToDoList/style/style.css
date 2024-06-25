@@ -29,8 +29,9 @@ body {
 .links {
     position: relative;
     float: right;
-    top: -145px;
+    top: -150px;
     list-style-type: none;
+    font-size: 20px;
 }
 
 .links li {
@@ -42,9 +43,9 @@ body {
         text-decoration: none;
         color: aliceblue;
         background-color: #3c87e9;
-        padding: 8px;
-        border-radius: 30px;
-        box-shadow: 0 0 5px #3c87e9;
+        padding:4px 16px ;
+        border-radius: 10px;
+        box-shadow: 0 0 5px #2e6ec2;
     }
 
     a:hover {
