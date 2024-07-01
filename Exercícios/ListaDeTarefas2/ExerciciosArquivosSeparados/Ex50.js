@@ -129,7 +129,7 @@ function fazerReserva(listaHoteis, reservas) {
 }
 
 function cancelarReseva(reservas, hoteis) {
-    let idReserva = parseInt(prompt('Digite o CÓDIGO da reserva: '))
+    let idReserva = prompt('Digite o CÓDIGO da reserva: ')
 
     let reservaSelecionada = reservas.find(reserva => reserva.id == idReserva)
     let posArray = reservas.indexOf(reservaSelecionada)

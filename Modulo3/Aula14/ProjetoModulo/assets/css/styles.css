@@ -134,8 +134,6 @@ nav {
 
         
     }
-
-
    
     }
 
@@ -150,6 +148,14 @@ nav {
     display: flex;
     justify-content: space-around;
     padding: 70px;
+    
+}
+
+.carrossel_image {
+    width: 300px;
+    box-shadow: 0 0 5px #000D0A;
+    margin: 0.2rem;
+    border-radius: 5px;
 }
 
 .faixa {
