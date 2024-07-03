@@ -13,19 +13,26 @@ body {
 }
 
 nav {
-    position: fixed;
-    display: inline-block;
-    width: 100%;
+    position: fixed !important; 
+    display: flex !important;
+    justify-content: space-between !important; 
+    width: 100vw !important;
     z-index: 4;
+    background-color: rgb(33, 37, 41, 0.9) !important;
+
+    .navbar-brand {
+        margin-left: 5%;
+    }
+    
 
     .navbar {
         background-color: rgb(33, 37, 41, 0.9) !important;
     }
 
-    .itensNav {
+    .navbar-nav {
         display: flex;
-        gap: 30%;
-        justify-content: space-between;
+        gap: 1%;
+        justify-content: end;
         align-items: center;
         width: 80%;
         margin-inline-start: 10%;
@@ -39,12 +46,10 @@ nav {
 }
 
 .carousel {
-    display: inline-block;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    top: 280px;
+
+    padding-top: 15%;
+    padding-bottom: 15% ;
+
 
 
     h1 {
@@ -57,6 +62,7 @@ nav {
     }
 
     .buttons-container {
+        gap: 4px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -82,7 +88,6 @@ nav {
 }
 
 .second-section {
-    margin-top: 30%;
     clear: both;
     background-color: #f4f4f4;
     display: flex;
@@ -109,6 +114,7 @@ nav {
 
         h1, h3 {
             color: #7B25F8;
+            font-weight: 650;
             font: extrabold;
             font-family: "Montserrat", sans-serif;
         }
@@ -158,35 +164,159 @@ nav {
 
 footer {
     background-color: #000;
-    margin:0 ;
+    margin: 0;
     padding: 0;
     position: absolute;
     width: 100vw;
     height: 30vh;
-
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10%;
+    align-items: center; 
+    justify-content: space-around; 
+}
 
-    ul li{
-        list-style: none;
-        .title a {
-            color: #bd2a2a;
+footer .logo-container {
+    display: flex;
+    align-self: center;
+}
+
+footer .itens {
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 150px; 
+}
+
+footer a {
+    color: #f4f4f4;
+    text-decoration: none;
+}
+
+footer h6 {
+    color: #737171;
+    margin-bottom: 10px; 
+}
+
+
+@media (max-width: 600px) {
+
+    nav {
+        .navbar-brand {
+            margin-left: 0%;
+        }
+    
+        .logo {
+            height: 50px;
         }
         
-        a{
+        .traco {
+            display: none;
+        }
+    }
+
+    .carousel {
+
+        padding-top: 30%;
+        padding-bottom: 15%;
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .button-one {
+            padding: 8px;
+            font-size: 14px;
+        }
+    
+        .button-two {
+            padding: 8px;
+            font-size: 14px;
+        }
+    }
+
+    .second-section {
+    
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+    
+        }
+    
+        .images {
+            width: 90%;
+        }
+
+    }
+
+    .third-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5%;
+    
+        .container {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            flex-direction: column;
+            gap: 50px;
+        }
+    
+        .images {
+            display: flex;
+            rotate: 43deg;
+            z-index: 3;
+
+            img {
+                width: 50%;
+                height: 50%;
+            }
+        
+        }
+    
+        .textos {
+            width: 100%;
+        }
+    }
+
+    footer {
+        overflow: hidden;
+        width: 100vw;
+        height: 50vh;
+        gap: 0%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .itens {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-self: center;
+            height: 29%;
+        }
+        
+        
+        
+        a {
             color: #f4f4f4;
             text-decoration: none;
         }
+            
+    
+
+        img {
+            padding: 10px;
+            height: 60px;
+        }
+    
+
+    
         
     }
-
-    h6 {
-        color: #737171;
-        padding-inline-start: 2 ;
-    }
-
     
 }
 
