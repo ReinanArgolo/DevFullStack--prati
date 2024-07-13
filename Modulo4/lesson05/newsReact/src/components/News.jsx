@@ -1,56 +1,76 @@
 import { useState, useEffect } from 'react'
+import css from './News.module.css'
 
 function News() {
     const [news, setNews] = useState([])
     const [Loading, setLoading] = useState(true)
+    const [start, setStart] = useState(0)
+    const [end, setEnd] = useState(6)
+
+    const fetchNews = async () => {
+        setLoading(true)
+        try {
+            const response = await fetch('https://api.nytimes.com/svc/news/v3/content/world/americas.json?api-key=8ZQxz5m0dzwgoJ0Fd1r9Nk6bKcf5BZIJ')
+            const newsData = await response.json()
+            setNews(newsData.results.slice(start, end))
+        } catch (error) {
+            console.log(error)
+        }
+        setLoading(false)
+    }
 
     useEffect(() => {
+        fetchNews()
         const intervalId = setInterval(() => {
-            const fetchNews = async () => {
-                setLoading(true)
-
-                try {
-                    const response = await fetch('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=9b9fed1b6f35466b808eb066e3c07c78')
-                    const newsData = await response.json()
-                    console.log(newsData)
-                    setNews(newsData.articles.slice(0, 5))
-
-                } catch (error) {
-                    console.log(error)
-                }
-
-                setLoading(false)
-
-
-            }
-
             fetchNews()
-        }, 300000)
-
+        }, 30000)
         return () => {
             clearInterval(intervalId)
         }
+    }, [start, end])
 
-    }, []) // Array vazio indica que isso rodará apenas quando o componente for montado
+    const prev = () => {
+        if (start > 0) {
+            setStart(start - 6)
+            setEnd(end - 6)
+        }
+    }
 
-    // Resto do seu componente...
+    const next = () => {
+        if (end < news.length + 6){
+            setStart(start + 6)
+            setEnd(end + 6)
+        }
+    }
 
     return (
-        <div>
-
-            <h1>Ultimas Noícias</h1>
-
+        <div className={css.container}>
+            {/* <h1 className={css.title}>Últimas Notícias</h1> */}
             {Loading ? (
-                <p>Carregando...</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading" />
             ) : (
-                news.map((article, index) => (
-                    <div key={index}>
-                        <h2>{article.title}</h2>
-                        <img src={article.urlToImage} alt="" />
-                        <p>{article.description}</p>
-                    </div>
-                ))
+                ""
             )}
+            <div className={css.newsContainer}>
+
+                
+                {news.map((article, index) => (
+                    <a href={article.url}>
+                    <div key={index} className={css.news} style={{ backgroundImage: `url(${article.multimedia[2].url})` }}>
+                        <div className={css.newsOverlay}>
+                            <h2 className={css.title}>{article.title}</h2>
+                            <p className={css.abstract}>{article.abstract}</p>
+                            {/* <button className={css.button}><a href={article.url}>Leia mais...</a></button> */}
+                        </div>
+                    </div>
+                    </a>
+                    
+                ))}
+            </div>
+            <div className={css.changeButtons}>
+                <button className={css.prev} onClick={prev}> &#8249; </button>
+                <button className={css.next} onClick={next}> &#8250; </button>
+            </div>
         </div>
     );
 }
