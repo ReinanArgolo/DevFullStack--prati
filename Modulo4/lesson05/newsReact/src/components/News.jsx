@@ -13,6 +13,7 @@ function News() {
             const response = await fetch('https://api.nytimes.com/svc/news/v3/content/world/americas.json?api-key=8ZQxz5m0dzwgoJ0Fd1r9Nk6bKcf5BZIJ')
             const newsData = await response.json()
             setNews(newsData.results.slice(start, end))
+            console.log(newsData)
         } catch (error) {
             console.log(error)
         }
@@ -27,7 +28,7 @@ function News() {
         return () => {
             clearInterval(intervalId)
         }
-    }, [start, end])
+    }, [])
 
     const prev = () => {
         if (start > 0) {
@@ -45,7 +46,7 @@ function News() {
 
     return (
         <div className={css.container}>
-            {/* <h1 className={css.title}>Últimas Notícias</h1> */}
+            <h1 className={css.title}>Últimas Notícias</h1>
             {Loading ? (
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading" />
             ) : (
@@ -56,7 +57,7 @@ function News() {
                 
                 {news.map((article, index) => (
                     <a href={article.url}>
-                    <div key={index} className={css.news} style={{ backgroundImage: `url(${article.multimedia[2].url})` }}>
+                    <div key={index} className={css.news} style={{ backgroundImage: `url(${article.multimedia && article.multimedia[2] ? article.multimedia[2].url : 'URL_de_reserva'})` }}>
                         <div className={css.newsOverlay}>
                             <h2 className={css.title}>{article.title}</h2>
                             <p className={css.abstract}>{article.abstract}</p>
