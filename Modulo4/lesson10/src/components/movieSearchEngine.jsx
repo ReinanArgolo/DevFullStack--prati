@@ -2,6 +2,9 @@ import { useState } from "react"
 import axios from "axios"
 import styled from "styled-components"
 import { GoSearch } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Container = styled.div`
     display: flex;
@@ -10,13 +13,13 @@ const Container = styled.div`
     justify-content: center;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
-    background: url(https://images.pexels.com/photos/436413/pexels-photo-436413.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background: url(https://img.freepik.com/free-psd/3d-cinema-blank-banner-background_23-2150822408.jpg?t=st=1721848189~exp=1721851789~hmac=277db0b86210a0ba114fc743c9ff8af30db840e8e18bf669e50c9d9e174b46be&w=826);
     background-repeat: no-repeat;
     background-size: 100%;
 ` 
 const Title = styled.h2`
     font-size: 3rem;
-    color: #fff;
+    color: #333;
     text-align: center;
 `
 const SearchForm = styled.form`
@@ -74,7 +77,7 @@ const Div = styled.div`
     padding: 20px;
     place-items: center;
     backdrop-filter: blur(10px);
-    background-color: rgba(999, 999, 999, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5); 
     border-radius: 5px;
     background-repeat: no-repeat;
 
@@ -117,6 +120,7 @@ const NameData = styled.div`
 function MovieSearchEngine() {
     const [query, setQuery] = useState("")
     const [movies, setMovies] = useState([])
+    const navigate = useNavigate()
 
     const searchMovies = async () => {
         try {
@@ -156,6 +160,9 @@ function MovieSearchEngine() {
                         </Movie>
                     ))}
             </Div>
+
+            <Button onClick={() => navigate('/home')}>Home</Button>
+
         </Container>
     )
 

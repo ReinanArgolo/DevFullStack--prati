@@ -1,7 +1,9 @@
-import { useState } from "react"
-import axios from "axios"
-import styled from "styled-components"
+import { useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
+const API_KEY = import.meta.env.VITE_TRADUTOR_API;
 
 const Container = styled.div`
     display: flex;
@@ -14,23 +16,23 @@ const Container = styled.div`
     background-repeat: no-repeat;
     margin: 0 auto;
     font-family: Arial, Helvetica, sans-serif;
-`
+`;
 
 const Title = styled.h2`
     font-size: 3rem;
     color: #333;
     text-align: center;
-`
+`;
 
 const Label = styled.label`
    color: #555;
    margin: 10px;
-`
+`;
 
 const TranslatedText = styled.p`
     font-size: 2rem;
     color: #333;
-`
+`;
 
 const AppContainer = styled.div`
     display: flex;
@@ -45,15 +47,21 @@ const AppContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.2); 
     backdrop-filter: blur(3px); 
     background-blend-mode: overlay;
-    
-`
+`;
+
+const Button = styled.button`
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background-color: #fff;
+    cursor: pointer;
+`;
 
 const LanguageTranslator = () => {
-
-    const [text, setText] = useState("")
-    const [translatedText, setTranslatedText] = useState("")
-    const [sourceLanguage, setSourceLanguage] = useState("en")
-    const [targetLanguage, setTargetLanguage] = useState("pt")
+    const [text, setText] = useState("");
+    const [translatedText, setTranslatedText] = useState("");
+    const [sourceLanguage, setSourceLanguage] = useState("EN");
+    const [targetLanguage, setTargetLanguage] = useState("PT");
 
     const translateText = async () => {
         try {
@@ -63,13 +71,14 @@ const LanguageTranslator = () => {
                     langpair: `${sourceLanguage}|${targetLanguage}`,
                 }
             })
-
+    
             setTranslatedText(response.data.responseData.translatedText)
         } catch {
             console.error("Error", error)
         }
     }
 
+    const navigate = useNavigate();
 
     return (
         <Container>
@@ -79,7 +88,7 @@ const LanguageTranslator = () => {
             <div>
                 <Label htmlFor=""> Source Language: </Label>
                 <select value={sourceLanguage} onChange={(e) => setSourceLanguage(e.target.value)}>
-                    <option value="en">English</option>
+                    <option value="EN">English</option>
                     <option value="es">Spanish</option>
                     <option value="fr">French</option>
                     <option value="de">German</option>
@@ -94,7 +103,7 @@ const LanguageTranslator = () => {
                     <option value="fr">French</option>
                     <option value="de">German</option>
                     <option value="it">Italian</option>
-                    <option value="pt">Portuguese</option>
+                    <option value="PT">Portuguese</option>
                 </select>
             </div>
 
@@ -109,8 +118,10 @@ const LanguageTranslator = () => {
 
             {translatedText && <TranslatedText>{translatedText}</TranslatedText>}
             </AppContainer>
-        </Container>
-    )
-}
 
-export default LanguageTranslator
+            <Button onClick={() => navigate('/home')}>Home</Button>
+        </Container>
+    );
+};
+
+export default LanguageTranslator;
