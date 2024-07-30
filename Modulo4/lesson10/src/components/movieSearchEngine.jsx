@@ -44,7 +44,7 @@ const Button = styled.button`
     height: 35px;
     cursor: pointer;
 `
-const Movie = styled.div`    
+const Movie = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,16 +54,15 @@ const Movie = styled.div`
     margin: 20px auto;
     padding: 20px;
     border-radius: 20px;
-    background-repeat: none;
-    background-position: center;
     color: #fff;
     transition: all 0.3s ease;
     border: 2px solid #888;
+    background: ${({ posterPath }) => `url(https://image.tmdb.org/t/p/w200${posterPath})`} no-repeat;
+    background-size: cover; 
 
     &:hover {
         transform: scale(1.1);
     }
-
 `
 
 const Div = styled.div`
@@ -121,13 +120,15 @@ function MovieSearchEngine() {
     const [query, setQuery] = useState("")
     const [movies, setMovies] = useState([])
     const navigate = useNavigate()
+    const API_KEY = import.meta.env.VITE_TMDB_APIKEY
+    console.log(API_KEY)
 
     const searchMovies = async () => {
         try {
             event.preventDefault()
-            const response = await axios.get(`http://www.omdbapi.com/?s=${query}&apikey=d7acb435`)
-            setMovies(response.data.Search)
-            console.log(response.data.Search)
+            const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`)
+            setMovies(response.data.results)
+            console.log(response.data.results)
         } catch (error) {
             console.error("Error", error)
         }
@@ -151,10 +152,10 @@ function MovieSearchEngine() {
             <Div>
                 {movies && 
                     movies.map((movie) => (
-                        <Movie key={movie.imdbID} style={{background: `url(${movie.Poster})`}}>
+                        <Movie key={movie.imdbID} posterPath={movie.poster_path}>
                             <NameData>
-                                <h3>{movie.Title}</h3>
-                                <p>{movie.Type} | {movie.Year}</p>
+                                <h3>{movie.original_title}</h3>
+                                <p>{movie.Type} | {movie.release_date}</p>
                             </NameData>  
                             
                         </Movie>

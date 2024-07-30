@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const API_KEY = import.meta.env.VITE_TRADUTOR_API;
 
 const Container = styled.div`
     display: flex;
@@ -65,14 +64,14 @@ const LanguageTranslator = () => {
 
     const translateText = async () => {
         try {
-            const response = await axios.get('https://api.mymemory.translated.net/get', {
-                params: {
-                    q: text,
-                    langpair: `${sourceLanguage}|${targetLanguage}`,
-                }
-            })
+            await translator
+                .translateText(text, sourceLanguage, targetLanguage)
+                .then((result => {
+                    console.log(result.text)
+                    setTranslatedText(response.data.responseData.translatedText)
+
+                }))
     
-            setTranslatedText(response.data.responseData.translatedText)
         } catch {
             console.error("Error", error)
         }

@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 
 function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   console.log('isLogged:', isLogged);
 
