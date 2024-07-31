@@ -2,12 +2,8 @@ import styled from "styled-components";
 import { IoPlay } from "react-icons/io5";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import { Virtual } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 import 'swiper/css/virtual';
 
@@ -73,8 +69,8 @@ const PopularMovie = styled.div`
     background-image: url(${props => `https://image.tmdb.org/t/p/w500${props.backPath}`});
     background-size: cover;
     background-position: center;
-    height: 180px;
-    width: 290px;
+    height: 140px;
+    width: 250px;
     position: relative;
     margin-inline: 10px;
     border-radius: 5px; 
@@ -86,19 +82,12 @@ const MovieTitle = styled.h3`
     position: absolute;
     bottom: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
     color: #fff;
     text-align: center;
     padding: 10px 0;
     margin: 0;
 `;
-
-const SwiperSlideStyled = styled(SwiperSlide)`
-  width: 300px;
-  height: 400px;
-`;
-
-
 
 const API_KEY = import.meta.env.VITE_TMDB_APIKEY;
 
@@ -114,39 +103,6 @@ export default function Home() {
                 console.error(err);
             });
     }, []);
-
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 700,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    infinite: false,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
 
     return (
         <Container>
@@ -164,7 +120,7 @@ export default function Home() {
 
                     <MoviesContainer>
 
-                        <Swiper modules={[Virtual]} spaceBetween={50} slidesPerView={4} virtual>
+                        <Swiper modules={[Virtual]} spaceBetween={150} slidesPerView={5} virtual>
                             {filmes &&
                                 filmes.map((filme) => (
                                     <SwiperSlide key={filme.id} virtualIndex={5}>
