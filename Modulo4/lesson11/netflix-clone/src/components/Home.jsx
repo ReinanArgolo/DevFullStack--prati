@@ -5,6 +5,11 @@ import axios from 'axios';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { Virtual } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/virtual';
 
 const Container = styled.div``;
 
@@ -68,10 +73,11 @@ const PopularMovie = styled.div`
     background-image: url(${props => `https://image.tmdb.org/t/p/w500${props.backPath}`});
     background-size: cover;
     background-position: center;
-    height: 200px;
-    width: 100px;
+    height: 180px;
+    width: 290px;
     position: relative;
-    margin-inline: 10px; 
+    margin-inline: 10px;
+    border-radius: 5px; 
 
     
 `;
@@ -86,6 +92,13 @@ const MovieTitle = styled.h3`
     padding: 10px 0;
     margin: 0;
 `;
+
+const SwiperSlideStyled = styled(SwiperSlide)`
+  width: 300px;
+  height: 400px;
+`;
+
+
 
 const API_KEY = import.meta.env.VITE_TMDB_APIKEY;
 
@@ -150,14 +163,17 @@ export default function Home() {
                     <TitleContainer><TitlePopular>Popular on Netflix</TitlePopular></TitleContainer>
 
                     <MoviesContainer>
-                        <Slider {...settings}>
+
+                        <Swiper modules={[Virtual]} spaceBetween={50} slidesPerView={4} virtual>
                             {filmes &&
                                 filmes.map((filme) => (
-                                    <PopularMovie key={filme.id} backPath={filme.backdrop_path}>
-                                        <MovieTitle>{filme.title}</MovieTitle>
-                                    </PopularMovie>
+                                    <SwiperSlide key={filme.id} virtualIndex={5}>
+                                        <PopularMovie backPath={filme.backdrop_path}>
+                                            <MovieTitle>{filme.title}</MovieTitle>
+                                        </PopularMovie>
+                                    </SwiperSlide>
                                 ))}
-                        </Slider>
+                        </Swiper>
                     </MoviesContainer>
                 </Popular>
             </ContainerTopPage>
