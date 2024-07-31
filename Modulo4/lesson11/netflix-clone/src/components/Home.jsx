@@ -2,37 +2,34 @@ import styled from "styled-components";
 import { IoPlay } from "react-icons/io5";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
-
-const Container = styled.div`
-
-`
+const Container = styled.div``;
 
 const ContainerTopPage = styled.div`
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://newr7-r7-prod.web.arc-cdn.net/resizer/v2/HODO4UI5VZHNFORSL3SQGXCP2Q.jpg?auth=e4ba1c30f6b042450171e4fe5513b2cd66f572d9341ce017be5407f06eb5a7f9&width=1280&height=720');
     background-size: cover;
     background-position: center;
-    
-    
+`;
 
-`
 const Title = styled.div`
     width: 580px;
-    padding: 150px 50px;
+    padding: 150px 50px 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
-`
+`;
 
 const Img = styled.img`
     width: 100%;
-    
-`
+`;
 
 const ImgContainer = styled.div`
     height: 280px;
     overflow: hidden;
-`
+`;
 
 const Button = styled.button`
     color: #000;
@@ -41,53 +38,58 @@ const Button = styled.button`
     background-color: #fff;
     border: none;
     border-radius: 5px;
-`
+`;
 
 const DescriptionTop = styled.p`
     margin: 0 50px;
     color: #fff;
     font-size: 18px;
     opacity: 10;
-`
+`;
 
 const Popular = styled.div`
-    color: #fff;
-    margin: 0;
-`
+    padding: 50px 50px;
+`;
 
 const TitleContainer = styled.div`
-    
-`
+    margin-bottom: 20px;
+`;
 
 const TitlePopular = styled.h2`
-    margin: 0;
-    margin: 0 60px;
-`
+    color: #fff;
+    font-size: 24px;
+`;
+
+const MoviesContainer = styled.div`
+    margin: 10px;
+`;
 
 const PopularMovie = styled.div`
-    background: ${({ backPath }) => `url(https://image.tmdb.org/t/p/w200${backPath})`} no-repeat;
-    width: 389px;
-    height: 219px;
+    background-image: url(${props => `https://image.tmdb.org/t/p/w500${props.backPath}`});
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    width: 100px;
+    position: relative;
+    margin-inline: 10px; 
+
     
-`
+`;
 
-const MoviesConatiner = styled.div`
-    display: flex;
-    
-    
-`
+const MovieTitle = styled.h3`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+`;
 
-
-const MovieTitle = styled.h2`
-`
-
-
-
-const API_KEY = import.meta.env.VITE_TMDB_APIKEY
+const API_KEY = import.meta.env.VITE_TMDB_APIKEY;
 
 export default function Home() {
-
-
     const [filmes, setFilmes] = useState([]);
 
     useEffect(() => {
@@ -100,7 +102,38 @@ export default function Home() {
             });
     }, []);
 
-
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 700,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
 
     return (
         <Container>
@@ -116,19 +149,18 @@ export default function Home() {
                 <Popular>
                     <TitleContainer><TitlePopular>Popular on Netflix</TitlePopular></TitleContainer>
 
-                    <MoviesConatiner>
-                        {filmes &&
-                            filmes.map((filme) => (
-                                <PopularMovie key={filme.id} backPath={filme.backdrop_path}>
-                                    <MovieTitle>{filme.title}</MovieTitle>
-                                </PopularMovie>
-                            ))}
-                    </MoviesConatiner>
-
-
+                    <MoviesContainer>
+                        <Slider {...settings}>
+                            {filmes &&
+                                filmes.map((filme) => (
+                                    <PopularMovie key={filme.id} backPath={filme.backdrop_path}>
+                                        <MovieTitle>{filme.title}</MovieTitle>
+                                    </PopularMovie>
+                                ))}
+                        </Slider>
+                    </MoviesContainer>
                 </Popular>
             </ContainerTopPage>
-
         </Container>
-    )
+    );
 }
