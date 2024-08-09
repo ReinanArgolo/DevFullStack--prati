@@ -6,6 +6,9 @@ import { Virtual } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/virtual';
+import MovieModal from './MovieModal'
+
+
 
 const Container = styled.div``;
 
@@ -95,14 +98,37 @@ export default function Home() {
     const [filmes, setFilmes] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR`)
-            .then(res => {
-                setFilmes(res.data.results);
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        const fetchPopularMovies = async () => {
+            try {
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR`);
+                const moviesWithGenres = await Promise.all(response.data.results.map(async (movie) => {
+                    const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&language=pt-BR`);
+                    return { ...movie, genres: movieDetails.data.genres };
+                }));
+                setFilmes(moviesWithGenres);
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+                
+            }
+        };
+
+        fetchPopularMovies();
     }, []);
+        
+
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = (filme) => {
+            setSelectedMovie(filme);
+            setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+
 
     return (
         <Container>
@@ -119,18 +145,22 @@ export default function Home() {
                     <TitleContainer><TitlePopular>Popular on Netflix</TitlePopular></TitleContainer>
 
                     <MoviesContainer>
-
                         <Swiper modules={[Virtual]} spaceBetween={150} slidesPerView={5} virtual>
                             {filmes &&
                                 filmes.map((filme) => (
                                     <SwiperSlide key={filme.id} virtualIndex={5}>
-                                        <PopularMovie backPath={filme.backdrop_path}>
+                                        <PopularMovie backPath={filme.backdrop_path} onClick={() => handleOpenModal(filme)}>
                                             <MovieTitle>{filme.title}</MovieTitle>
                                         </PopularMovie>
                                     </SwiperSlide>
                                 ))}
                         </Swiper>
                     </MoviesContainer>
+                    <MovieModal
+                        filme={selectedMovie}
+                        isOpen={isModalOpen}
+                        onClose={handleCloseModal}
+                    />
                 </Popular>
             </ContainerTopPage>
         </Container>
