@@ -8,6 +8,8 @@ import 'swiper/css';
 import 'swiper/css/virtual';
 import MovieModal from './MovieModal'
 
+import Carrossel from "./Carrossel";
+
 
 
 const Container = styled.div``;
@@ -52,7 +54,7 @@ const DescriptionTop = styled.p`
 `;
 
 const Popular = styled.div`
-    padding: 50px 50px;
+    padding: 50px 20px 0px;
 `;
 
 const TitleContainer = styled.div`
@@ -62,6 +64,7 @@ const TitleContainer = styled.div`
 const TitlePopular = styled.h2`
     color: #fff;
     font-size: 24px;
+    margin-left: 20px;
 `;
 
 const MoviesContainer = styled.div`
@@ -128,6 +131,28 @@ export default function Home() {
         setIsModalOpen(false);
     };
 
+  
+
+    
+        const fetchMoviesByGenre = async (genreId) => {
+            try {
+              const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
+                params: {
+                  api_key: API_KEY,
+                  language: 'pt-br',
+                  with_genres: genreId
+                }
+              });
+              
+              console.log(response.data.results)
+              return response.data.results;
+            } catch (error) {
+              console.error(`Error fetching movies for genre ${genreId}:`, error);
+            }
+          };
+    
+     
+
 
 
     return (
@@ -138,29 +163,27 @@ export default function Home() {
                         <Img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a58a7719-0dcf-4e0b-b7bb-d2b725dbbb8e/dgver0j-d5f2afb9-29da-46ec-b41b-520f09536229.png/v1/fill/w_1193,h_670/deadpool_and_wolverine_logo_png_hd_2024_by_andrewvm_dgver0j-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjkyIiwicGF0aCI6IlwvZlwvYTU4YTc3MTktMGRjZi00ZTBiLWI3YmItZDJiNzI1ZGJiYjhlXC9kZ3ZlcjBqLWQ1ZjJhZmI5LTI5ZGEtNDZlYy1iNDFiLTUyMGYwOTUzNjIyOS5wbmciLCJ3aWR0aCI6Ijw9MTIzMiJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.yc6ldo1gRSYm1bwUFuxQ7OOTvG4ixMHv-a0CJgHhAGE" />
                     </ImgContainer>
                     <DescriptionTop>Wolverine está se recuperando quando cruza seu caminho com Deadpool. Juntos, eles formam uma equipe e enfrentam um inimigo em comum.</DescriptionTop>
-                    <Button> < IoPlay color="#000" />Assistir</Button>
+                    <Button> <IoPlay color="#000"/>Assistir</Button>
                 </Title>
-
+                
                 <Popular>
                     <TitleContainer><TitlePopular>Popular on Netflix</TitlePopular></TitleContainer>
+                    <Carrossel/>
+                </Popular>
+                
+                <Popular>
+                    <TitleContainer><TitlePopular>Ação</TitlePopular></TitleContainer>
+                    <Carrossel genreId={28}/>
+                </Popular>
 
-                    <MoviesContainer>
-                        <Swiper modules={[Virtual]} spaceBetween={150} slidesPerView={5} virtual>
-                            {filmes &&
-                                filmes.map((filme) => (
-                                    <SwiperSlide key={filme.id} virtualIndex={5}>
-                                        <PopularMovie backPath={filme.backdrop_path} onClick={() => handleOpenModal(filme)}>
-                                            <MovieTitle>{filme.title}</MovieTitle>
-                                        </PopularMovie>
-                                    </SwiperSlide>
-                                ))}
-                        </Swiper>
-                    </MoviesContainer>
-                    <MovieModal
-                        filme={selectedMovie}
-                        isOpen={isModalOpen}
-                        onClose={handleCloseModal}
-                    />
+                <Popular>
+                    <TitleContainer><TitlePopular>Comédia</TitlePopular></TitleContainer>
+                    <Carrossel genreId={35}/>
+                </Popular>
+                
+                <Popular>
+                    <TitleContainer><TitlePopular>Animação</TitlePopular></TitleContainer>
+                    <Carrossel genreId={16}/>
                 </Popular>
             </ContainerTopPage>
         </Container>

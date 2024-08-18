@@ -7,6 +7,8 @@ import Home from './components/Home'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Resultado from './components/Resultado'
 
+import Carrossel from './components/Carrossel'
+
 
 function App() {
 
@@ -46,6 +48,7 @@ function App() {
 
     </div>
 
+    
 
   )
 }

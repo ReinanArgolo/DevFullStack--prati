@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import StarRating from './StarsRating';
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -12,7 +13,7 @@ const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  z-index: 1;
+  z-index: 5;
 `;
 
 const ModalContent = styled.div`
@@ -82,7 +83,9 @@ const MovieModal = ({ filme, isOpen, onClose }) => {
           </ImageContainer>
           <InfoContainer>
             <h2>{filme.title} ({filme.release_date.slice(0,4)})</h2>
-            <p>{filme.genres.map((genre) => genre.name).join(', ')}</p>
+            {/* <p>{filme.genres.map((genre) => genre.name).join(', ')}</p> */}
+            <StarRating rating={filme.vote_average} />
+            
             <p>{filme.overview}</p>
         
           </InfoContainer>
