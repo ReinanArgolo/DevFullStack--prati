@@ -9,30 +9,50 @@ const ModalContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
   z-index: 5;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    padding: 50px 0px 0px ;
+    
+  }
 `;
 
 const ModalContent = styled.div`
   background-color: #fff;
   width: 80%;
+  max-width: 900px;
   height: 80%;
+  max-height: 90%;
   border-radius: 10px;
-  overflow: visible;
+  overflow: hidden;
   position: relative; 
-  border-radius: 5px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 80%;
+    height: 80%;
+  }
 `;
 
 const ImageContainer = styled.div`
-  height: 50%;
+  height: 40%;
   background-size: cover;
   background-position: center;
   position: relative;
-  border-radius: 5px;
+
+  @media (max-width: 768px) {
+    height: 25%;
+    
+  }
 `;
 
 const GradientOverlay = styled.div`
@@ -41,79 +61,160 @@ const GradientOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100px;
-  border-radius: 5px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
 `;
 
 const InfoContainer = styled.div`
-  background-color: #000;
+  background-color: #222;
   color: #fff;
   padding: 20px;
-  height: 50%;
+  flex: 1;
   overflow-y: auto;
-  border-radius: 5px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const CloseButton = styled.button`
   position: absolute;
   top: 10px;
-  right: 30px;
-  text-align: right;
+  right: -45%;
   background-color: transparent;
   border: none;
   cursor: pointer;
   font-size: 24px;
-  color: #000000;
+  color: #fff;
+  z-index: 10;
 
   &:hover {
-    color: #424242;
+    color: #ccc;
   }
-  z-index: 2;
+`;
+
+const Title = styled.h2`
+  font-size: 24px;
+  margin: 0 0 10px;
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
+`;
+
+const Overview = styled.p`
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 10px 0;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const ActorList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 20px 0 0;
 `;
 
 const ActorItem = styled.li`
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 10px 15px 10px 0;
+  width: 45%;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ActorImage = styled.img`
   width: 50px;
   height: 50px;
-  border-radius: 10%;
-  margin-right: 10px;
+  border-radius: 50%;
+  margin-right: 15px;
+`;
+
+const ActorName = styled.p`
+  font-size: 16px;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
+
+const CharacterName = styled.p`
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const MovieModal = ({ filme, isOpen, onClose }) => {
   const [credits, setCredits] = useState(null);
+  const [actual, setActual] = useState(null)
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
-    const fetchCredits = async () => {
+    const fetchItem = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${filme.id}/credits`, {
+        const response = await axios.get(`https://api.themoviedb.org/3/search/multi`, {
           params: {
             api_key: import.meta.env.VITE_TMDB_APIKEY,
-            language: 'pt-BR', // Ou 'en-US', dependendo da sua preferência
-          },
+            language: 'pt-BR',
+            query: filme.title || filme.name
+          }
         });
-        console.log(response.data)
-        setCredits(response.data);
+        const results = response.data.results;
+        const credit = results.find((result) => result.id === filme.id);
+        setActual(credit);
+        console.log(credit);
       } catch (error) {
         console.error('Erro ao buscar os créditos do filme:', error);
       }
+      setLoading(false);
     };
+  
+    if (filme.id) {
+      fetchItem();
+    }
+  
+  }, [filme.id]);
 
+  useEffect(() => {
+    const fetchCredits = async () => {
+      setLoading(true)
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/${actual.media_type}/${actual.id}/credits`, {
+          params: {
+            api_key: import.meta.env.VITE_TMDB_APIKEY,
+            language: 'pt-BR'
+          }
+        });
+        setCredits(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error('Erro ao buscar os créditos do filme em Fetch:', error);
+      }
+      setLoading(false)
+    };
+  
     if (filme.id) {
       fetchCredits();
     }
-  }, [filme.id]);
+  }, [actual]);
+
+
+  
+
+
 
   if (!isOpen) return null;
 
@@ -125,18 +226,27 @@ const MovieModal = ({ filme, isOpen, onClose }) => {
           <GradientOverlay />
         </ImageContainer>
         <InfoContainer>
-          <h2>{filme.title} ({filme.release_date?.slice(0, 4)})</h2>
+          <Title>{filme.title || filme.name} ({filme.release_date?.slice(0, 4) || filme.first_air_date?.slice(0, 4)})</Title>
+          <p>{filme.media_type && (filme.media_type)}</p>
           <StarRating rating={filme.vote_average} />
-          <p>{filme.overview}</p>
+          
+          <Overview>{filme.overview}</Overview>
+
+          {isLoading && <p>Loading...</p>}
 
           {credits && (
             <>
               <h3>Elenco:</h3>
               <ActorList>
+                
+                {credits.cast.length === 0 && <p>Não há atores no momento.</p>}
                 {credits.cast.slice(0, 5).map((actor) => (
                   <ActorItem key={actor.id}>
                     <ActorImage src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} />
-                    <p>{actor.name} como {actor.character}</p>
+                    <div>
+                      <ActorName>{actor.name}</ActorName>
+                      <CharacterName>como {actor.character}</CharacterName>
+                    </div>
                   </ActorItem>
                 ))}
               </ActorList>

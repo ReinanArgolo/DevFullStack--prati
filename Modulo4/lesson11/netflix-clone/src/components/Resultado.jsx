@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import MovieModal from './MovieModal';
 
+
 const Resultados = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

@@ -6,7 +6,12 @@ const FooterContainer = styled.div`
     text-align: center;
     padding: 20px;
     bottom: 0;
-    width: 100%;
+   
+
+    @media (max-width: 768px) {
+        width: 100%;
+        padding: 150px 0px;
+    }
 `
 
 const Duvidas = styled.div`

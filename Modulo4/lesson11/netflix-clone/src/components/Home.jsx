@@ -2,13 +2,12 @@ import styled from "styled-components";
 import { IoPlay } from "react-icons/io5";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Virtual } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/virtual';
-import MovieModal from './MovieModal'
 
 import Carrossel from "./Carrossel";
+import CarrosselPopular from "./CarrosselPopular";
+import CarrosselSeries from "./CarrosselSeries";
 
 
 
@@ -18,6 +17,7 @@ const ContainerTopPage = styled.div`
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://newr7-r7-prod.web.arc-cdn.net/resizer/v2/HODO4UI5VZHNFORSL3SQGXCP2Q.jpg?auth=e4ba1c30f6b042450171e4fe5513b2cd66f572d9341ce017be5407f06eb5a7f9&width=1280&height=720');
     background-size: cover;
     background-position: center;
+    
 `;
 
 const Title = styled.div`
@@ -26,15 +26,29 @@ const Title = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        padding: 100px 0px 0px;
+    }
 `;
 
 const Img = styled.img`
     width: 100%;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `;
 
 const ImgContainer = styled.div`
     height: 280px;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 const Button = styled.button`
@@ -48,6 +62,7 @@ const Button = styled.button`
 
 const DescriptionTop = styled.p`
     margin: 0 50px;
+    width: 85%;
     color: #fff;
     font-size: 18px;
     opacity: 10;
@@ -55,6 +70,11 @@ const DescriptionTop = styled.p`
 
 const Popular = styled.div`
     padding: 50px 20px 0px;
+
+    @media (max-width: 768px) {
+        margin: 5px;
+        padding: 0px;
+    }
 `;
 
 const TitleContainer = styled.div`
@@ -67,94 +87,10 @@ const TitlePopular = styled.h2`
     margin-left: 20px;
 `;
 
-const MoviesContainer = styled.div`
-    margin: 10px;
-`;
-
-const PopularMovie = styled.div`
-    background-image: url(${props => `https://image.tmdb.org/t/p/w500${props.backPath}`});
-    background-size: cover;
-    background-position: center;
-    height: 140px;
-    width: 250px;
-    position: relative;
-    margin-inline: 10px;
-    border-radius: 5px; 
-
-    
-`;
-
-const MovieTitle = styled.h3`
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    margin: 0;
-`;
 
 const API_KEY = import.meta.env.VITE_TMDB_APIKEY;
 
 export default function Home() {
-    const [filmes, setFilmes] = useState([]);
-
-    useEffect(() => {
-        const fetchPopularMovies = async () => {
-            try {
-                const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR`);
-                const moviesWithGenres = await Promise.all(response.data.results.map(async (movie) => {
-                    const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&language=pt-BR`);
-                    return { ...movie, genres: movieDetails.data.genres };
-                }));
-                setFilmes(moviesWithGenres);
-            } catch (error) {
-                console.error('Error fetching movies:', error);
-                
-            }
-        };
-
-        fetchPopularMovies();
-    }, []);
-        
-
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleOpenModal = (filme) => {
-            setSelectedMovie(filme);
-            setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-  
-
-    
-        const fetchMoviesByGenre = async (genreId) => {
-            try {
-              const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
-                params: {
-                  api_key: API_KEY,
-                  language: 'pt-br',
-                  with_genres: genreId
-                }
-              });
-              
-              console.log(response.data.results)
-              return response.data.results;
-            } catch (error) {
-              console.error(`Error fetching movies for genre ${genreId}:`, error);
-            }
-          };
-    
-     
-
-
-
     return (
         <Container>
             <ContainerTopPage>
@@ -165,10 +101,16 @@ export default function Home() {
                     <DescriptionTop>Wolverine está se recuperando quando cruza seu caminho com Deadpool. Juntos, eles formam uma equipe e enfrentam um inimigo em comum.</DescriptionTop>
                     <Button> <IoPlay color="#000"/>Assistir</Button>
                 </Title>
-                
+
                 <Popular>
                     <TitleContainer><TitlePopular>Popular on Netflix</TitlePopular></TitleContainer>
-                    <Carrossel/>
+                    <CarrosselPopular/>
+                </Popular>
+                
+
+                <Popular>
+                    <TitleContainer><TitlePopular>Séries</TitlePopular></TitleContainer>
+                    <CarrosselSeries/>
                 </Popular>
                 
                 <Popular>
